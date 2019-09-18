@@ -1,2 +1,1 @@
-# autodidact
-intelligent home automation
+# ![](.github/COVER.png)
