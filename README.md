@@ -1,4 +1,4 @@
-# ![](.github/COVER.png)
+# ![autodidact](.github/COVER.png)
 
 ## Overview
 
