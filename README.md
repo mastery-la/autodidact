@@ -1,0 +1,2 @@
+# autodidact
+intelligent home automation
