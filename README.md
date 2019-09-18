@@ -2,7 +2,7 @@
 
 ## Overview
 
-**autodidact** is a system that acts as the central nervous system for inteligent homes. an inteligent home is more than a smart home — it's a home that learns, evolves, and adapts to best suit the needs of its inhabitants
+**autodidact** is a platform that acts as the central nervous system for inteligent homes. an inteligent home is more than a smart home — it's a home that learns, evolves, and adapts to best suit the needs of its inhabitants
 
 ## Objectives
 
