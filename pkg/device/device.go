@@ -1,3 +1,4 @@
+// Package device implements smart devices that are made up of controllable components
 package device
 
 import "fmt"

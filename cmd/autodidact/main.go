@@ -38,4 +38,5 @@ func main() {
 	}
 
 	fmt.Printf("Currently %gºF", status.LatestData.UIData.DispTemperature)
+
 }
