@@ -8,7 +8,9 @@ func (t teapot) GetInfo() string {
 	return "I am a teapot named " + t.name
 }
 
-// ExamplePrintDeviceInfo ensures that PrintDeviceInfo prints the expected information
+// ExamplePrintDeviceInfo ensures that PrintDeviceInfo prints the expected information.
+// If attributes about a device are changed, calling PrintDeviceInfo after the changed
+// should reflect the new values and print new information.
 func ExamplePrintDeviceInfo() {
 	// create an example teapot named kitchen
 	exampleteapot := teapot{name: "kitchen"}
