@@ -12,11 +12,3 @@ type Device interface {
 func PrintDeviceInfo(d Device) {
 	fmt.Println(d.GetInfo())
 }
-
-type teapot struct {
-	name string
-}
-
-func (t *teapot) GetInfo() string {
-	return "I am a teapot named " + t.name
-}
