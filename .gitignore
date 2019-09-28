@@ -13,3 +13,5 @@
 
 # Enviornment variable files
 .env
+
+.db

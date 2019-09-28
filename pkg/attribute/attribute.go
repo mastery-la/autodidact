@@ -11,7 +11,7 @@ type Attribute struct {
 	format        string
 	value         interface{}
 
-	onChange ChangeFunc
+	onChange *ChangeFunc
 }
 
 // New returns an Attribute for a provided type
@@ -36,7 +36,7 @@ func (a *Attribute) GetFormat() string {
 
 // UpdateValue updates the value of the Attribute
 func (a *Attribute) UpdateValue(v interface{}) {
-	a.value = v
+	a.updateValue(v)
 }
 
 // GetValue gets the value of the Attribute as a genric interface{}
@@ -44,6 +44,15 @@ func (a *Attribute) GetValue() interface{} {
 	return a.value
 }
 
-func (a *Attribute) updateValue(value interface{}) {
+// OnChange registers a callback ChangeFunc for when the value is changed
+func (a *Attribute) OnChange(changeFunc ChangeFunc) {
+	a.onChange = &changeFunc
+}
 
+func (a *Attribute) updateValue(value interface{}) {
+	if a.onChange != nil {
+		onChange := *a.onChange
+		onChange(a, value, a.value)
+	}
+	a.value = value
 }

@@ -1,6 +1,7 @@
 module github.com/mastery-la/autodidact
 
 require (
+	github.com/brutella/hc v1.2.0
 	github.com/go-home-iot/honeywell v0.0.0-20161119014616-f4dde0984b6b
 	github.com/joho/godotenv v1.3.0
 	github.com/labstack/echo v3.3.10+incompatible
