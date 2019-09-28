@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -16,7 +17,14 @@ import (
 func main() {
 	ts := node.NewThermostat("124334123")
 
-	fmt.Printf("%+v", ts)
+	ts.SetTargetTemperature(30.0)
+
+	data, err := json.MarshalIndent(ts, "", "    ")
+	if err != nil {
+		log.Panic(err)
+	}
+
+	fmt.Printf("%s\n", data)
 }
 
 func other() {
@@ -46,5 +54,4 @@ func other() {
 	}
 
 	fmt.Printf("Currently %gºF", status.LatestData.UIData.DispTemperature)
-
 }
