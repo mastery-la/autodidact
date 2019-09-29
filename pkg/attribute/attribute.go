@@ -7,18 +7,20 @@ type ChangeFunc func(a *Attribute, newValue, oldValue interface{})
 // Attribute represents a value of a Component and methods for changing
 // the internal value in a safe way, also notifying listerns of changes
 type Attribute struct {
-	attributeType string
-	format        string
-	value         interface{}
+	id     string
+	typ    string
+	format string
+	value  interface{}
 
 	onChange *ChangeFunc
 }
 
 // New returns an Attribute for a provided type
-func New(typ string) *Attribute {
+func New(id string, typ string) *Attribute {
 	a := new(Attribute)
 
-	a.attributeType = typ
+	a.id = id
+	a.typ = typ
 	a.value = nil
 
 	return a
@@ -26,7 +28,7 @@ func New(typ string) *Attribute {
 
 // GetType returns the type of the Attribute
 func (a *Attribute) GetType() string {
-	return a.attributeType
+	return a.typ
 }
 
 // GetFormat returns the format of the Attribute

@@ -9,10 +9,12 @@ import (
 // TypeThermostat is ThermostatNode
 const TypeThermostat = "ThermostatNode"
 
-// Thermostat is a type of Node that represents a thermostat
+// Thermostat is a type of Node that represents a thermostat.
+// A Thermostat Node is made up of a Thermostat Component
 type Thermostat struct {
 	*Node
-	Thermostat *component.Thermostat
+	*component.Thermostat
+	*component.Switch
 }
 
 // NewThermostat creates a Thermostat Node with the provided id
@@ -25,21 +27,6 @@ func NewThermostat(id string) *Thermostat {
 	ts.AddComponent(ts.Thermostat.Component)
 
 	return ts
-}
-
-// SetTargetTemperature sets the target temperature set point for the thermostat
-func (t *Thermostat) SetTargetTemperature(temp float64) {
-	t.Thermostat.TargetTemperature.SetValue(temp)
-}
-
-// GetTargetTemperature gets the target temperature set point for the thermostat
-func (t *Thermostat) GetTargetTemperature() float64 {
-	return t.Thermostat.TargetTemperature.GetValue()
-}
-
-// GetCurrentTemperature gets the current temperature as measured by the thermostat
-func (t *Thermostat) GetCurrentTemperature() float64 {
-	return t.Thermostat.CurrentTemperature.GetValue()
 }
 
 type thermostatPayload struct {

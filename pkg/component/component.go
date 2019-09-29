@@ -8,9 +8,9 @@ import (
 // Component represents a compontent of a Node which is made
 // up of Attributes that can be read from and/or written to
 type Component struct {
-	id            string
-	componentType string
-	attributes    []*attribute.Attribute
+	id         string
+	typ        string
+	attributes []*attribute.Attribute
 }
 
 // New returns a new Component given an id and type
@@ -18,7 +18,7 @@ func New(id string, typ string) *Component {
 	c := new(Component)
 
 	c.id = id
-	c.componentType = typ
+	c.typ = typ
 
 	return c
 }
@@ -30,7 +30,7 @@ func (c *Component) GetID() string {
 
 // GetType returns the type of the Component
 func (c *Component) GetType() string {
-	return c.componentType
+	return c.typ
 }
 
 // GetAttributes returns an array of all Attributes of the Component

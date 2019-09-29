@@ -3,6 +3,7 @@ package controller
 import (
 	"context"
 	"log"
+	"math"
 
 	"github.com/mastery-la/autodidact/pkg/util"
 
@@ -31,13 +32,15 @@ func NewTotalComfortControl(ctx context.Context, deviceID int, login string, pas
 }
 
 func (c *TotalComfortControl) SetCoolF(temp float64) {
-	log.Printf("setting cool point to %gºF\n", temp)
-	c.ts.CoolMode(c.ctx, float32(temp), 0)
+	setPoint := math.Round(temp)
+	log.Printf("setting cool point to %gºF\n", setPoint)
+	c.ts.CoolMode(c.ctx, float32(setPoint), 0)
 }
 
 func (c *TotalComfortControl) SetHeatF(temp float64) {
-	log.Printf("setting heat point to %gºF\n", temp)
-	c.ts.HeatMode(c.ctx, float32(temp), 0)
+	setPoint := math.Round(temp)
+	log.Printf("setting heat point to %gºF\n", setPoint)
+	c.ts.HeatMode(c.ctx, float32(setPoint), 0)
 }
 
 func (c *TotalComfortControl) SetCoolC(temp float64) {

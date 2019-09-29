@@ -13,8 +13,8 @@ import (
 
 type HoneywellThermostat struct {
 	*Bridge
-	Thermostat          *node.Thermostat
-	TotalComfortControl *controller.TotalComfortControl
+	*node.Thermostat
+	controller *controller.TotalComfortControl
 }
 
 func NewHoneywellThermostat(deviceID int, login string, password string) (*HoneywellThermostat, error) {
@@ -31,7 +31,7 @@ func NewHoneywellThermostat(deviceID int, login string, password string) (*Honey
 		return nil, err
 	}
 
-	hw.TotalComfortControl = tcc
+	hw.controller = tcc
 	hw.AddController(tcc.Controller)
 
 	hw.setupBridge()
@@ -49,6 +49,6 @@ func (b *HoneywellThermostat) setupBridge() {
 
 			temp := newValue.(float64)
 			log.Printf("client wants %g", temp)
-			b.TotalComfortControl.SetCoolC(temp)
+			b.controller.SetCoolC(temp)
 		})
 }

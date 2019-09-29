@@ -13,10 +13,10 @@ type Temperature struct {
 }
 
 // NewTemperature returns a new Temperature Attribute
-func NewTemperature() *Temperature {
+func NewTemperature(id string) *Temperature {
 	temp := new(Temperature)
 
-	temp.Float = NewFloat(TypeTemperature)
+	temp.Float = NewFloat(id, TypeTemperature)
 
 	return temp
 }

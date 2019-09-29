@@ -22,10 +22,10 @@ func NewThermostat(id string) *Thermostat {
 
 	ts.Component = New(id, TypeThermostat)
 
-	ts.CurrentTemperature = attribute.NewTemperature()
+	ts.CurrentTemperature = attribute.NewTemperature("CurrentTemperature")
 	ts.AddAttribute(ts.CurrentTemperature.Attribute)
 
-	ts.TargetTemperature = attribute.NewTemperature()
+	ts.TargetTemperature = attribute.NewTemperature("TargetTemperature")
 	ts.AddAttribute(ts.TargetTemperature.Attribute)
 
 	return ts

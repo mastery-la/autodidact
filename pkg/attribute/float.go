@@ -9,10 +9,10 @@ type Float struct {
 }
 
 // NewFloat returns a new Float Attribute
-func NewFloat(typ string) *Float {
+func NewFloat(id string, typ string) *Float {
 	f := new(Float)
 
-	f.Attribute = New(typ)
+	f.Attribute = New(id, typ)
 
 	f.format = FormatFloat
 	f.value = 0.0

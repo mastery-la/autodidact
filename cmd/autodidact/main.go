@@ -5,8 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/brutella/hc"
-	"github.com/brutella/hc/accessory"
+	"github.com/mastery-la/autodidact/pkg/protocol/homekit"
 
 	"github.com/mastery-la/autodidact/pkg/bridge"
 
@@ -14,37 +13,19 @@ import (
 )
 
 func main() {
-	info := accessory.Info{
-		Name:         "Thermostat",
-		SerialNumber: "TCAS3AS14AS3",
-		Manufacturer: "Honeywell",
-		Model:        "TCC01",
-	}
-	acc := accessory.NewThermostat(info, 22.0, 15.0, 32.0, 1.0)
-
-	config := hc.Config{Pin: "12344321", Port: "12345", StoragePath: "./.db"}
-	t, err := hc.NewIPTransport(config, acc.Accessory)
+	honeywell, err := getHoneywellThermostat()
 	if err != nil {
 		log.Panic(err)
 	}
 
-	bridge, err := getBridge()
-	if err != nil {
-		log.Panic(err)
-	}
+	transport := homekit.New("12344321", "12345", "./db")
 
-	acc.Thermostat.TargetTemperature.OnValueRemoteUpdate(func(temp float64) {
-		bridge.Thermostat.Thermostat.TargetTemperature.SetValue(temp)
-	})
+	transport.AddAccessory(homekit.NewThermostat(honeywell.Thermostat))
 
-	hc.OnTermination(func() {
-		<-t.Stop()
-	})
-
-	t.Start()
+	transport.Start()
 }
 
-func getBridge() (*bridge.HoneywellThermostat, error) {
+func getHoneywellThermostat() (*bridge.HoneywellThermostat, error) {
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")

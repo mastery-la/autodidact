@@ -3,6 +3,9 @@ package node
 
 import (
 	"encoding/json"
+	"strings"
+
+	"github.com/iancoleman/strcase"
 
 	"github.com/mastery-la/autodidact/pkg/component"
 )
@@ -11,8 +14,13 @@ import (
 // send messages to and query for metrics
 type Node struct {
 	id         string
-	nodeType   string
+	typ        string
 	components []*component.Component
+
+	Name         string
+	Manufacturer string
+	SerialNumber string
+	Model        string
 }
 
 // New returns a new Node given an id and type
@@ -20,9 +28,21 @@ func New(id string, typ string) *Node {
 	node := new(Node)
 
 	node.id = id
-	node.nodeType = typ
+	node.typ = typ
+
+	node.Name = nameFromType(typ)
+	node.Manufacturer = ""
+	node.SerialNumber = ""
+	node.Model = ""
 
 	return node
+}
+
+func nameFromType(typ string) string {
+	s := strcase.ToDelimited(typ, '/')
+	ss := strings.Split(s, "/")
+
+	return ss[0]
 }
 
 // GetID returns the ID of the Node
@@ -32,7 +52,7 @@ func (n *Node) GetID() string {
 
 // GetType returns the Type of the Node
 func (n *Node) GetType() string {
-	return n.nodeType
+	return n.typ
 }
 
 // GetComponents returns an array of all Components of the Node
