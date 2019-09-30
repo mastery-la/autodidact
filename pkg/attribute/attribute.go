@@ -4,6 +4,9 @@ package attribute
 // ChangeFunc is a function that is called when the value changes
 type ChangeFunc func(a *Attribute, newValue, oldValue interface{})
 
+// NewValueFunc is a shorthand for ChangeFunc that only accepts newValue
+type NewValueFunc func(newValue interface{})
+
 // Attribute represents a value of a Component and methods for changing
 // the internal value in a safe way, also notifying listerns of changes
 type Attribute struct {
@@ -12,7 +15,7 @@ type Attribute struct {
 	format string
 	value  interface{}
 
-	onChange *ChangeFunc
+	changeFuncs []ChangeFunc
 }
 
 // New returns an Attribute for a provided type
@@ -22,6 +25,7 @@ func New(id string, typ string) *Attribute {
 	a.id = id
 	a.typ = typ
 	a.value = nil
+	a.changeFuncs = make([]ChangeFunc, 0)
 
 	return a
 }
@@ -47,14 +51,24 @@ func (a *Attribute) GetValue() interface{} {
 }
 
 // OnChange registers a callback ChangeFunc for when the value is changed
-func (a *Attribute) OnChange(changeFunc ChangeFunc) {
-	a.onChange = &changeFunc
+func (a *Attribute) OnChange(fn ChangeFunc) {
+	a.changeFuncs = append(a.changeFuncs, fn)
+}
+
+// OnNewValue registers a callback NewValueFunc for when the value is changed
+func (a *Attribute) OnNewValue(fn NewValueFunc) {
+	changeFunc := func(a *Attribute, newValue, oldValue interface{}) {
+		if newValue == oldValue {
+			return
+		}
+		fn(newValue)
+	}
+	a.OnChange(changeFunc)
 }
 
 func (a *Attribute) updateValue(value interface{}) {
-	if a.onChange != nil {
-		onChange := *a.onChange
-		onChange(a, value, a.value)
+	for _, fn := range a.changeFuncs {
+		fn(a, value, a.value)
 	}
 	a.value = value
 }

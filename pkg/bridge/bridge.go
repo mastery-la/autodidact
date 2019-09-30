@@ -7,6 +7,7 @@ import (
 	"github.com/mastery-la/autodidact/pkg/node"
 )
 
+// Bridge represents a connection between a Node an a collection of 1+ Controller(s)
 type Bridge struct {
 	node        *node.Node
 	controllers []*controller.Controller
